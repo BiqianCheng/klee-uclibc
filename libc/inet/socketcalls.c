@@ -72,9 +72,10 @@ ssize_t __libc_recv(int sockfd, __ptr_t buffer, size_t len, int flags)
 ssize_t recvfrom(int sockfd, __ptr_t buffer, size_t len, int flags,
 				 struct sockaddr *to, socklen_t *tolen)
 {
-	klee_make_symbolic(&buffer, sizeof(*buffer), "buffer");
+	int size = klee_int("size");
+	klee_make_symbolic(&buffer, sizeof(buffer), "buffer");
 
-	return syscall(__NR_recvfrom, sockfd, buffer, len, flags, to, tolen);
+	return size;
 }
 #endif
 
@@ -108,7 +109,7 @@ ssize_t sendto(int sockfd, const void *buffer, size_t len, int flags,
 	printf("\n");
 	klee_print_expr("Size of the data structure send to the client", sizeof(*buffer));
 	printf("\n");
-	return syscall(__NR_sendto, sockfd, buffer, len, flags, to, tolen);
+	return sizeof(*buffer);
 }
 #endif
 
