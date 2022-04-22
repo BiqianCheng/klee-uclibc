@@ -105,6 +105,9 @@ ssize_t __libc_sendmsg(int sockfd, const struct msghdr *msg, int flags)
 ssize_t sendto(int sockfd, const void *buffer, size_t len, int flags,
 			   const struct sockaddr *to, socklen_t tolen)
 {
+	printf("\n");
+	klee_print_expr("Size of the data structure send to the client", sizeof(*buffer));
+	printf("\n");
 	return syscall(__NR_sendto, sockfd, buffer, len, flags, to, tolen);
 }
 #endif
