@@ -64,7 +64,8 @@ int listen(int sockfd, int backlog)
 #ifdef L_recv
 ssize_t __libc_recv(int sockfd, __ptr_t buffer, size_t len, int flags)
 {
-	return 0;
+	// klee_make_symbolic(&buffer, len, "buffer");
+	return sizeof(*buffer);
 }
 #endif
 
@@ -72,10 +73,10 @@ ssize_t __libc_recv(int sockfd, __ptr_t buffer, size_t len, int flags)
 ssize_t recvfrom(int sockfd, __ptr_t buffer, size_t len, int flags,
 				 struct sockaddr *to, socklen_t *tolen)
 {
-	int size = klee_int("size");
-	klee_make_symbolic(&buffer, sizeof(buffer), "buffer");
+	// int size = klee_int("size");
+	// klee_make_symbolic(&buffer, sizeof(buffer), "buffer");
 
-	return size;
+	return len;
 }
 #endif
 
@@ -105,11 +106,11 @@ ssize_t __libc_sendmsg(int sockfd, const struct msghdr *msg, int flags)
 #ifdef L_sendto
 ssize_t sendto(int sockfd, const void *buffer, size_t len, int flags,
 			   const struct sockaddr *to, socklen_t tolen)
-{
-	printf("\n");
-	klee_print_expr("Size of the data structure send to the client", sizeof(*buffer));
-	printf("\n");
-	return sizeof(*buffer);
+{	
+	// printf("\n");
+	klee_print_expr("Size of the data structure send to the client", sizeof(buffer));
+	// printf("\n");
+	return len;
 }
 #endif
 
