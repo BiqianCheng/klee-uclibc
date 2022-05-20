@@ -14,83 +14,83 @@
 // #ifdef L_accept
 // int __libc_accept(int s, struct sockaddr *addr, socklen_t *addrlen)
 // {
-// 	return 0;
+//     return 0;
 // }
 // #endif
 
 // #ifdef L_bind
 // int bind(int sockfd, const struct sockaddr *myaddr, socklen_t addrlen)
 // {
-// 	return syscall(__NR_bind, sockfd, myaddr, addrlen);
+//     return syscall(__NR_bind, sockfd, myaddr, addrlen);
 // }
 // #endif
 
 // #ifdef L_connect
 // int __libc_connect(int sockfd, const struct sockaddr *saddr, socklen_t addrlen)
 // {
-// 	return 0;
+//     return 0;
 // }
 // #endif
 
 // #ifdef L_getpeername
 // int getpeername(int sockfd, struct sockaddr *addr, socklen_t *paddrlen)
 // {
-// 	return 0;
+//     return 0;
 // }
 // #endif
 
 // #ifdef L_getsockname
 // int getsockname(int sockfd, struct sockaddr *addr, socklen_t *paddrlen)
 // {
-// 	return 0;
+//     return 0;
 // }
 // #endif
 
 // #ifdef L_getsockopt
 // int getsockopt(int fd, int level, int optname, __ptr_t optval,
-// 			   socklen_t *optlen)
+//                socklen_t *optlen)
 // {
-// 	return 0;
+//     return 0;
 // }
 // #endif
 
 // #ifdef L_listen
 // int listen(int sockfd, int backlog)
 // {
-// 	return 0;
+//     return 0;
 // }
 // #endif
 
 // #ifdef L_recv
 // ssize_t __libc_recv(int sockfd, __ptr_t buffer, size_t len, int flags)
 // {
-// 	// klee_make_symbolic(&buffer, len, "buffer");
-// 	return sizeof(*buffer);
+//     // klee_make_symbolic(&buffer, len, "buffer");
+//     return len;
 // }
 // #endif
 
 // #ifdef L_recvfrom
 // ssize_t recvfrom(int sockfd, __ptr_t buffer, size_t len, int flags,
-// 				 struct sockaddr *to, socklen_t *tolen)
+//                  struct sockaddr *to, socklen_t *tolen)
 // {
-// 	// int size = klee_int("size");
-// 	// klee_make_symbolic(&buffer, sizeof(buffer), "buffer");
+//     // int size = klee_int("size");
+//     klee_make_symbolic(buffer, len, "recvfrom buffer");
 
-// 	return len;
+//     return len;
 // }
 // #endif
 
 // #ifdef L_recvmsg
 // ssize_t __libc_recvmsg(int sockfd, struct msghdr *msg, int flags)
 // {
-// 	return 0;
+//     return 0;
 // }
 // #endif
 
 // #ifdef L_send
 // ssize_t __libc_send(int sockfd, const void *buffer, size_t len, int flags)
 // {
-// 	return 0;
+//     return 0;
 // }
 
 // #endif
@@ -98,34 +98,34 @@
 // #ifdef L_sendmsg
 // ssize_t __libc_sendmsg(int sockfd, const struct msghdr *msg, int flags)
 // {
-// 	return 0;
+//     return 0;
 // }
 
 // #endif
 
 // #ifdef L_sendto
 // ssize_t sendto(int sockfd, const void *buffer, size_t len, int flags,
-// 			   const struct sockaddr *to, socklen_t tolen)
-// {	
-// 	// printf("\n");
-// 	klee_print_expr("Size of the data structure send to the client", len);
-// 	// printf("\n");
-// 	return len;
+//                const struct sockaddr *to, socklen_t tolen)
+// {
+//     // printf("\n");
+//     klee_print_expr("Size of the data structure send to the client", len);
+//     // printf("\n");
+//     return len;
 // }
 // #endif
 
 // #ifdef L_setsockopt
 // int setsockopt(int fd, int level, int optname, const void *optval,
-// 			   socklen_t optlen)
+//                socklen_t optlen)
 // {
-// 	return 0;
+//     return 0;
 // }
 // #endif
 
 // #ifdef L_shutdown
 // int shutdown(int sockfd, int how)
 // {
-// 	return 0;
+//     return 0;
 // }
 
 // #endif
@@ -133,13 +133,13 @@
 // #ifdef L_socket
 // int socket(int family, int type, int protocol)
 // {
-// 	return syscall(__NR_socket, family, type, protocol);
+//     return syscall(__NR_socket, family, type, protocol);
 // }
 // #endif
 
 // #ifdef L_socketpair
 // int socketpair(int family, int type, int protocol, int sockvec[2])
 // {
-// 	return 0;
+//     return 0;
 // }
 // #endif
